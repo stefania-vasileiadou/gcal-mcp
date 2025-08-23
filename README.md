@@ -14,7 +14,7 @@ This is a simple Model Context Protocol ([MCP](https://modelcontextprotocol.io/d
 2. **Clone repository**
 - Run `git clone https://github.com/stefania-vasileiadou/gcal-mcp.git`
 3. **Google Cloud Setup**
-- TBA  
+- To be completed 
 
 **Note**: If your project is configured for an external user type and a publishing status of "Testing", every OAuth2 token will [expire after 7 days](https://developers.google.com/identity/protocols/oauth2#expiration). For this reason, you may encouter errors such as:
 ```

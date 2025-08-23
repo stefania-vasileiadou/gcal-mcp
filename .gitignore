@@ -3,3 +3,4 @@ myenv/
 gcp-oauth-desktop.keys.json
 gcp-oauth-web.keys.json
 token.json
+src/__pycache__/

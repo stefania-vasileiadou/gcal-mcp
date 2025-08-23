@@ -23,6 +23,20 @@ class Calendar(BaseModel):
     class Config:
         validate_by_name = True  # Allows both time_zone and timeZone
 
+class CalendarList(BaseModel):
+    kind: str = "calendar#calendarListEntry"
+    id: str = Field(..., description="Identifier of the calendar")
+    summary: str = Field(..., description="The title of the calendar")
+    description: Optional[str] = Field(None, description="The description of the calendar") 
+    etag: Optional[str] = Field(None, description="ETag of the resource")
+    color_id: Optional[str] = Field(None, description="The color of the calendar", alias="colorId")
+    location: Optional[str] = Field(None, description="Geographic location of the calendar as free-form text")
+    time_zone: Optional[str] = Field(None, description="The time zone in which the time is specified (Formatted as an IANA Time Zone Database name, e.g. 'Europe/Zurich')", alias="timeZone")
+    selected: Optional[bool] = Field(False, description="Whether the calendar content shows up in the calendar UI")
+
+    class Config:
+        validate_by_name = True
+
 class EventResponseStatus(str, Enum):
     needsAction = 'needsAction'
     declined = 'declined'
@@ -30,7 +44,7 @@ class EventResponseStatus(str, Enum):
     accepted = 'accepted'
 
 class EventAttendee(BaseModel):
-    id: Optional[str] = Field(None, description="Opaque identifier of the attendee")
+    id: str = Field(..., description="Opaque identifier of the attendee")
     email: Optional[str] = Field(None, description="The attendee's email address")
     display_name: Optional[str] = Field(None, description="The attendee's name", alias="displayName") 
     organizer: Optional[bool] = Field(False, description="Whether the attendee is the organizer of the event")
@@ -61,7 +75,7 @@ class EventOrganizer(BaseModel):
 
 class Event(BaseModel):
     kind: str = "calendar#event"
-    id: Optional[str] = Field(None, description="Opaque identifier of the event")
+    id: str = Field(..., description="Opaque identifier of the event")
     html_link: Optional[str] = Field(None, description="An absolute link to this event in the Google Calendar Web UI", alias="htmlLink")
     summary: Optional[str] = Field(None, description="Title of the event")
     organizer: Optional[EventOrganizer] = Field(None, description="The organizer of the event")

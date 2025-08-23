@@ -8,8 +8,8 @@ Boilerplate from the Google Workspace Calendar API Python Quickstart [https://de
 
 '''
 
-import datetime
 import os.path
+import logging
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -18,9 +18,9 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
+logger = logging.getLogger()
 
-
-def main():
+def get_service():
   creds = None
   # The file token.json stores the user's access and refresh tokens, and is
   # created automatically when the authorization flow completes for the first
@@ -42,11 +42,10 @@ def main():
 
   try:
     service = build("calendar", "v3", credentials=creds)
+    logger.debug("Google Calendar service created successfully")
+
     return service
 
-  except HttpError as error:
-    print(f"An error occurred: {error}")
-
-
-if __name__ == "__main__":
-  main()
+  except Exception as e:
+    logger.error(f"Failure creating the Google Calendar service: {e}")
+    raise
